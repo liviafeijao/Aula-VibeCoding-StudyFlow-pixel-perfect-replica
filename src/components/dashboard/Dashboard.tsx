@@ -7,12 +7,12 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useStudyData } from "@/hooks/use-study-data";
 import {
-  activeActivities,
+  operationalActivities,
   activityProgress,
-  formatMinutes,
+  formatDuration,
   isOverdue,
-  minutesByWeekday,
-  minutesThisWeek,
+  secondsByWeekday,
+  secondsThisWeek,
   upcoming,
 } from "@/lib/study-rules";
 import { EmptyState } from "@/components/common/EmptyState";
@@ -43,15 +43,15 @@ export function Dashboard() {
   const { data, loaded } = useStudyData();
   const now = new Date();
   const subjects = data.subjects.filter((s) => !s.archived);
-  const activities = activeActivities(data.activities, data.subjects);
+  const activities = operationalActivities(data);
   const progress = activityProgress(activities);
   const pending = activities.filter((a) => a.status !== "concluida");
   const overdue = pending.filter((a) => isOverdue(a, now));
   const next = upcoming(activities, 7, now);
-  const weekMin = minutesThisWeek(data.sessions, now);
-  const byDay = minutesByWeekday(data.sessions, now);
+  const weekMin = secondsThisWeek(data.sessions, now);
+  const byDay = secondsByWeekday(data.sessions, now);
   const maxDay = Math.max(...byDay, 1);
-  const goal = data.goal.weeklyMinutes;
+  const goal = data.settings.weeklyGoalMinutes;
   const subjectName = (id: string) => data.subjects.find((s) => s.id === id)?.name ?? "—";
 
   const today = format(now, "EEEE, d 'de' MMMM", { locale: ptBR });
@@ -75,7 +75,7 @@ export function Dashboard() {
         <Stat icon={ListTodo} label="Atividades pendentes" value={String(pending.length)} hint={`${activities.length} no total`} />
         <Stat icon={AlertTriangle} label="Atrasadas" value={String(overdue.length)} tone={overdue.length ? "danger" : "primary"} hint={overdue.length ? "Precisam de atenção" : "Nada atrasado"} />
         <Stat icon={CheckCircle2} label="Progresso das atividades" value={`${progress.percent}%`} hint={`${progress.done} de ${progress.total} concluídas`} />
-        <Stat icon={Clock} label="Estudado nesta semana" value={formatMinutes(weekMin)} hint={goal ? `Meta: ${formatMinutes(goal)}` : "Sem meta definida"} />
+        <Stat icon={Clock} label="Estudado nesta semana" value={formatDuration(weekMin)} hint={goal ? `Meta: ${formatDuration(goal * 60)}` : "Sem meta definida"} />
       </section>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-5">
@@ -141,7 +141,7 @@ export function Dashboard() {
               <div className="flex h-40 items-end gap-2" role="img" aria-label="Minutos estudados por dia da semana">
                 {byDay.map((m, i) => (
                   <div key={WEEKDAYS[i]} className="flex flex-1 flex-col items-center gap-1.5">
-                    <div className="bar" style={{ height: `${Math.max(4, (m / maxDay) * 100)}%` }} title={formatMinutes(m)} />
+                    <div className="bar" style={{ height: `${Math.max(4, (m / maxDay) * 100)}%` }} title={formatDuration(m)} />
                     <span className="text-xs text-muted-foreground">{WEEKDAYS[i]}</span>
                   </div>
                 ))}

@@ -104,7 +104,7 @@ function Body({ a }: { a: Activity }) {
         <div>
           <dt className="text-xs text-muted-foreground">Matéria</dt>
           <dd>{subject ? (
-            <Link to="/materias/$id" params={{ id: subject.id }} onClick={() => ui.closeActivity()} className="inline-flex items-center gap-1.5 font-medium hover:underline">
+            <Link to="/materias" onClick={() => ui.closeActivity()} className="inline-flex items-center gap-1.5 font-medium hover:underline">
               <SubjectDot color={subject.color} />{subject.name}
             </Link>) : "—"}</dd>
         </div>
