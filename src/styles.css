@@ -53,6 +53,8 @@
   --color-chart-5: var(--chart-5);
   --color-primary-soft: var(--primary-soft);
   --color-destructive-soft: var(--destructive-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
   --font-sans: "Manrope", system-ui, sans-serif;
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
