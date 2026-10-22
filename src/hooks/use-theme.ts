@@ -1,36 +1,30 @@
 import { useEffect, useState } from "react";
-
-type Theme = "light" | "dark";
-const KEY = "studyflow:theme";
+import { useStudyData } from "./use-study-data";
+import { updateSettings } from "@/services/repository";
+import type { ThemePref } from "@/models/types";
 
 export function useTheme() {
-  const [theme, setTheme] = useState<Theme>("light");
+  const { data, loaded } = useStudyData();
+  const pref: ThemePref = data.settings.theme;
+  const [systemDark, setSystemDark] = useState(false);
 
   useEffect(() => {
-    let saved: Theme | null = null;
-    try {
-      saved = window.localStorage.getItem(KEY) as Theme | null;
-    } catch {
-      /* ignore */
-    }
-    const initial =
-      saved ?? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    setTheme(initial);
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    setSystemDark(mq.matches);
+    const on = (e: MediaQueryListEvent) => setSystemDark(e.matches);
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
   }, []);
 
+  const theme: "light" | "dark" = pref === "sistema" ? (systemDark ? "dark" : "light") : pref === "escuro" ? "dark" : "light";
+
   useEffect(() => {
+    if (!loaded) return;
     document.documentElement.classList.toggle("dark", theme === "dark");
-  }, [theme]);
+  }, [theme, loaded]);
 
-  const toggle = () => {
-    const next: Theme = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    try {
-      window.localStorage.setItem(KEY, next);
-    } catch {
-      /* ignore */
-    }
-  };
+  const setPref = (p: ThemePref) => updateSettings({ theme: p });
+  const toggle = () => setPref(theme === "dark" ? "claro" : "escuro");
 
-  return { theme, toggle };
+  return { theme, pref, setPref, toggle };
 }
