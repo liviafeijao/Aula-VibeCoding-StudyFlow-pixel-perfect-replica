@@ -179,3 +179,35 @@
     color: var(--color-foreground);
   }
 }
+
+/* Cores das matérias (escolhidas pelo usuário). Texto sobre elas usa --subject-ink. */
+:root {
+  --subject-1: oklch(0.55 0.13 155);
+  --subject-2: oklch(0.55 0.11 210);
+  --subject-3: oklch(0.6 0.13 75);
+  --subject-4: oklch(0.56 0.16 30);
+  --subject-5: oklch(0.52 0.13 285);
+  --subject-6: oklch(0.56 0.15 350);
+  --subject-7: oklch(0.55 0.1 120);
+  --subject-8: oklch(0.5 0.03 250);
+  --subject-ink: oklch(0.99 0 0);
+  --warning: oklch(0.7 0.15 70);
+  --warning-soft: oklch(0.95 0.05 80);
+}
+.dark {
+  --subject-1: oklch(0.7 0.13 155);
+  --subject-2: oklch(0.7 0.11 210);
+  --subject-3: oklch(0.76 0.13 80);
+  --subject-4: oklch(0.7 0.15 30);
+  --subject-5: oklch(0.7 0.12 285);
+  --subject-6: oklch(0.72 0.13 350);
+  --subject-7: oklch(0.72 0.1 120);
+  --subject-8: oklch(0.7 0.03 250);
+  --subject-ink: oklch(0.18 0.01 160);
+  --warning: oklch(0.78 0.14 75);
+  --warning-soft: oklch(0.32 0.06 75);
+}
+@utility kanban-col { min-height: 12rem; border-radius: var(--radius-lg); background: var(--muted); padding: 0.75rem; transition: outline-color .15s; outline: 2px dashed transparent; &[data-over="true"] { outline-color: var(--primary); } }
+@utility cal-cell { min-height: 6.5rem; border-radius: var(--radius-md); border: 1px solid var(--border); padding: 0.35rem; background: var(--card); &[data-out="true"] { opacity: .45; } &[data-today="true"] { border-color: var(--primary); box-shadow: inset 0 0 0 1px var(--primary); } }
+@utility pop-in { animation: pop .25s ease-out both; }
+@keyframes pop { from { transform: scale(.85); opacity: .4; } to { transform: none; opacity: 1; } }
