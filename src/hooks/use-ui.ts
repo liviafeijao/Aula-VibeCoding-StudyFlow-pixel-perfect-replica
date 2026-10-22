@@ -5,7 +5,7 @@ import type { ID } from "@/models/types";
 export interface UiState {
   activityId: ID | null; // detalhes abertos
   activityForm: { open: boolean; editId: ID | null; subjectId?: ID | null; dueDate?: string | null };
-  subjectForm: { open: boolean; editId: ID | null; periodId?: ID | null };
+  subjectForm: { open: boolean; editId: ID | null; periodId?: ID | null | undefined };
   periodForm: { open: boolean; editId: ID | null };
   search: boolean;
 }
