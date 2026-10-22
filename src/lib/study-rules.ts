@@ -37,7 +37,7 @@ export function minutesByWeekday(sessions: StudySession[], now: Date = new Date(
   const out = [0, 0, 0, 0, 0, 0, 0];
   for (const s of sessions) {
     const idx = Math.floor((new Date(s.startedAt).getTime() - start) / 86400000);
-    if (idx >= 0 && idx < 7) out[idx] += s.durationMinutes;
+    if (idx >= 0 && idx < 7) out[idx] = (out[idx] ?? 0) + s.durationMinutes;
   }
   return out;
 }
