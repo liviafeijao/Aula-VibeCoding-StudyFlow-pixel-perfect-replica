@@ -10,33 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AtividadesRouteImport } from './routes/atividades'
+import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
+import { Route as EstudoRouteImport } from './routes/estudo'
+import { Route as MateriasRouteImport } from './routes/materias'
+import { Route as MetasRouteImport } from './routes/metas'
+import { Route as PeriodosRouteImport } from './routes/periodos'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AtividadesRoute = AtividadesRouteImport.update({
+  id: '/atividades',
+  path: '/atividades',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EstudoRoute = EstudoRouteImport.update({
+  id: '/estudo',
+  path: '/estudo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MateriasRoute = MateriasRouteImport.update({
+  id: '/materias',
+  path: '/materias',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MetasRoute = MetasRouteImport.update({
+  id: '/metas',
+  path: '/metas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeriodosRoute = PeriodosRouteImport.update({
+  id: '/periodos',
+  path: '/periodos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/atividades': typeof AtividadesRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/estudo': typeof EstudoRoute
+  '/materias': typeof MateriasRoute
+  '/metas': typeof MetasRoute
+  '/periodos': typeof PeriodosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/atividades': typeof AtividadesRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/estudo': typeof EstudoRoute
+  '/materias': typeof MateriasRoute
+  '/metas': typeof MetasRoute
+  '/periodos': typeof PeriodosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/atividades': typeof AtividadesRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/estudo': typeof EstudoRoute
+  '/materias': typeof MateriasRoute
+  '/metas': typeof MetasRoute
+  '/periodos': typeof PeriodosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/atividades'
+    | '/configuracoes'
+    | '/estudo'
+    | '/materias'
+    | '/metas'
+    | '/periodos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/atividades'
+    | '/configuracoes'
+    | '/estudo'
+    | '/materias'
+    | '/metas'
+    | '/periodos'
+  id:
+    | '__root__'
+    | '/'
+    | '/atividades'
+    | '/configuracoes'
+    | '/estudo'
+    | '/materias'
+    | '/metas'
+    | '/periodos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AtividadesRoute: typeof AtividadesRoute
+  ConfiguracoesRoute: typeof ConfiguracoesRoute
+  EstudoRoute: typeof EstudoRoute
+  MateriasRoute: typeof MateriasRoute
+  MetasRoute: typeof MetasRoute
+  PeriodosRoute: typeof PeriodosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +130,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/atividades': {
+      id: '/atividades'
+      path: '/atividades'
+      fullPath: '/atividades'
+      preLoaderRoute: typeof AtividadesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/configuracoes': {
+      id: '/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof ConfiguracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/estudo': {
+      id: '/estudo'
+      path: '/estudo'
+      fullPath: '/estudo'
+      preLoaderRoute: typeof EstudoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/materias': {
+      id: '/materias'
+      path: '/materias'
+      fullPath: '/materias'
+      preLoaderRoute: typeof MateriasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/metas': {
+      id: '/metas'
+      path: '/metas'
+      fullPath: '/metas'
+      preLoaderRoute: typeof MetasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/periodos': {
+      id: '/periodos'
+      path: '/periodos'
+      fullPath: '/periodos'
+      preLoaderRoute: typeof PeriodosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AtividadesRoute: AtividadesRoute,
+  ConfiguracoesRoute: ConfiguracoesRoute,
+  EstudoRoute: EstudoRoute,
+  MateriasRoute: MateriasRoute,
+  MetasRoute: MetasRoute,
+  PeriodosRoute: PeriodosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
