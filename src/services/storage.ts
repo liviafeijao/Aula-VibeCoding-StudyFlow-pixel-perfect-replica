@@ -8,11 +8,11 @@ function isStudyData(v: unknown): v is StudyData {
   if (!v || typeof v !== "object") return false;
   const d = v as Record<string, unknown>;
   return (
-    d.version === 1 &&
-    Array.isArray(d.periods) &&
-    Array.isArray(d.subjects) &&
-    Array.isArray(d.activities) &&
-    Array.isArray(d.sessions)
+    d['version'] === 1 &&
+    Array.isArray(d['periods']) &&
+    Array.isArray(d['subjects']) &&
+    Array.isArray(d['activities']) &&
+    Array.isArray(d['sessions'])
   );
 }
 
