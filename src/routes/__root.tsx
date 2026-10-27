@@ -12,6 +12,8 @@ import { useEffect, type ReactNode } from "react";
 
 import { AppShell } from "@/components/layout/AppShell";
 import { Toaster } from "@/components/ui/sonner";
+import { ActivityFormDialog, PeriodFormDialog, SubjectFormDialog } from "@/components/forms/EntityForms";
+import { ActivityDetailSheet } from "@/components/activities/ActivityDetailSheet";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -128,6 +130,10 @@ function RootComponent() {
       <AppShell>
         <Outlet />
       </AppShell>
+      <PeriodFormDialog />
+      <SubjectFormDialog />
+      <ActivityFormDialog />
+      <ActivityDetailSheet />
       <Toaster richColors position="top-right" />
     </QueryClientProvider>
   );
