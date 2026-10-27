@@ -161,6 +161,12 @@ export function Dashboard() {
           {subjects.length === 0 ? (
             <EmptyState icon={BookOpen} title="Comece cadastrando suas matérias">
               Crie um período letivo e adicione as matérias que você está cursando. O progresso de cada uma aparecerá aqui.
+              <div className="mt-3">
+                <button type="button" className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+                  onClick={() => (data.periods.some((p) => !p.archived) ? ui.newSubject() : ui.newPeriod())}>
+                  {data.periods.some((p) => !p.archived) ? "Criar matéria" : "Criar período"}
+                </button>
+              </div>
             </EmptyState>
           ) : (
             <ul className="grid gap-5 sm:grid-cols-2">
