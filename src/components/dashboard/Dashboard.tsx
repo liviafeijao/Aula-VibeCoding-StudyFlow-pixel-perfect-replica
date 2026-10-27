@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useStudyData } from "@/hooks/use-study-data";
+import { ui } from "@/hooks/use-ui";
 import {
   operationalActivities,
   activityProgress,
