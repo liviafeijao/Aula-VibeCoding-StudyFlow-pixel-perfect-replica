@@ -52,7 +52,12 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="mt-8 flex-1">
           <NavList />
         </div>
-        <Button variant="ghost" className="justify-start gap-3" onClick={toggle} aria-label={themeLabel}>
+        <Button
+          variant="ghost"
+          className="justify-start gap-3"
+          onClick={toggle}
+          aria-label={themeLabel}
+        >
           {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
           {theme === "dark" ? "Tema claro" : "Tema escuro"}
         </Button>

@@ -1,4 +1,13 @@
-import type { Activity, ActivityStatus, Priority, StudySession, Subject, StudyData, TimerState, Settings } from "@/models/types";
+import type {
+  Activity,
+  ActivityStatus,
+  Priority,
+  StudySession,
+  Subject,
+  StudyData,
+  TimerState,
+  Settings,
+} from "@/models/types";
 
 /* ---------- Datas locais (sem deslocamento de fuso) ---------- */
 
@@ -45,7 +54,11 @@ export function isOverdue(a: Activity, now: Date = new Date()): boolean {
   return !a.archived && a.status !== "concluida" && !!a.dueDate && a.dueDate < todayKey(now);
 }
 
-export const STATUS_WEIGHT: Record<ActivityStatus, number> = { nao_iniciada: 0, em_andamento: 50, concluida: 100 };
+export const STATUS_WEIGHT: Record<ActivityStatus, number> = {
+  nao_iniciada: 0,
+  em_andamento: 50,
+  concluida: 100,
+};
 export const PRIORITY_RANK: Record<Priority, number> = { urgente: 0, alta: 1, media: 2, baixa: 3 };
 
 /**
@@ -59,7 +72,10 @@ export function activityProgress(activities: Activity[]) {
   const total = list.length;
   const done = list.filter((a) => a.status === "concluida").length;
   const inProgress = list.filter((a) => a.status === "em_andamento").length;
-  const percent = total === 0 ? null : Math.round(list.reduce((acc, a) => acc + STATUS_WEIGHT[a.status], 0) / total);
+  const percent =
+    total === 0
+      ? null
+      : Math.round(list.reduce((acc, a) => acc + STATUS_WEIGHT[a.status], 0) / total);
   return { total, done, inProgress, pending: total - done, percent };
 }
 
@@ -70,10 +86,14 @@ export function subtaskProgress(a: Activity) {
 }
 
 /** Atividades visíveis nas telas operacionais: não arquivadas e de matérias/períodos não arquivados. */
-export function operationalActivities(data: Pick<StudyData, "activities" | "subjects" | "periods">): Activity[] {
+export function operationalActivities(
+  data: Pick<StudyData, "activities" | "subjects" | "periods">,
+): Activity[] {
   const archivedPeriods = new Set(data.periods.filter((p) => p.archived).map((p) => p.id));
   const okSubjects = new Set(
-    data.subjects.filter((s) => !s.archived && !(s.periodId && archivedPeriods.has(s.periodId))).map((s) => s.id),
+    data.subjects
+      .filter((s) => !s.archived && !(s.periodId && archivedPeriods.has(s.periodId)))
+      .map((s) => s.id),
   );
   return data.activities.filter((a) => !a.archived && okSubjects.has(a.subjectId));
 }
@@ -82,8 +102,19 @@ export function upcoming(activities: Activity[], days: number, now: Date = new D
   const today = todayKey(now);
   const limit = todayKey(addDays(now, days));
   return activities
-    .filter((a) => !a.archived && a.status !== "concluida" && a.dueDate && a.dueDate >= today && a.dueDate <= limit)
-    .sort((a, b) => a.dueDate!.localeCompare(b.dueDate!) || PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority]);
+    .filter(
+      (a) =>
+        !a.archived &&
+        a.status !== "concluida" &&
+        a.dueDate &&
+        a.dueDate >= today &&
+        a.dueDate <= limit,
+    )
+    .sort(
+      (a, b) =>
+        a.dueDate!.localeCompare(b.dueDate!) ||
+        PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority],
+    );
 }
 
 export interface ActivityFilters {
@@ -99,8 +130,15 @@ export interface ActivityFilters {
 }
 
 export const defaultFilters = (): ActivityFilters => ({
-  q: "", status: "todos", subjectId: "todos", periodId: "todos", priority: "todos",
-  type: "todos", due: "todos", overdueOnly: false, archived: false,
+  q: "",
+  status: "todos",
+  subjectId: "todos",
+  periodId: "todos",
+  priority: "todos",
+  type: "todos",
+  due: "todos",
+  overdueOnly: false,
+  archived: false,
 });
 
 export function isFiltering(f: ActivityFilters): boolean {
@@ -109,7 +147,10 @@ export function isFiltering(f: ActivityFilters): boolean {
 }
 
 export function normalizeText(s: string): string {
-  return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  return s
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
 }
 
 /** Filtros apenas alteram a visualização; nunca modificam dados. */
@@ -131,7 +172,8 @@ export function filterActivities(
     if (f.type !== "todos" && a.type !== f.type) return false;
     if (f.overdueOnly && !isOverdue(a, now)) return false;
     if (f.due === "hoje" && a.dueDate !== today) return false;
-    if (f.due === "semana" && !(a.dueDate && a.dueDate >= today && a.dueDate <= weekEnd)) return false;
+    if (f.due === "semana" && !(a.dueDate && a.dueDate >= today && a.dueDate <= weekEnd))
+      return false;
     if (f.due === "sem_prazo" && a.dueDate) return false;
     if (f.due === "com_prazo" && !a.dueDate) return false;
     if (q && !normalizeText(`${a.title} ${a.description} ${a.notes}`).includes(q)) return false;
@@ -152,11 +194,16 @@ export function sortActivities(list: Activity[], key: SortKey): Activity[] {
   const ST: Record<ActivityStatus, number> = { em_andamento: 0, nao_iniciada: 1, concluida: 2 };
   r.sort((a, b) => {
     switch (key) {
-      case "prazo": return byDue(a, b) || PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority];
-      case "prioridade": return PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority] || byDue(a, b);
-      case "criacao": return b.createdAt.localeCompare(a.createdAt);
-      case "status": return ST[a.status] - ST[b.status] || byDue(a, b);
-      default: return a.order - b.order;
+      case "prazo":
+        return byDue(a, b) || PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority];
+      case "prioridade":
+        return PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority] || byDue(a, b);
+      case "criacao":
+        return b.createdAt.localeCompare(a.createdAt);
+      case "status":
+        return ST[a.status] - ST[b.status] || byDue(a, b);
+      default:
+        return a.order - b.order;
     }
   });
   return r;
@@ -192,7 +239,9 @@ export function secondsThisWeek(sessions: StudySession[], now: Date = new Date()
 /** Segundos por dia da semana corrente (índice 0 = segunda). */
 export function secondsByWeekday(sessions: StudySession[], now: Date = new Date()): number[] {
   const start = startOfWeek(now);
-  return Array.from({ length: 7 }, (_, i) => secondsBetween(sessions, addDays(start, i), addDays(start, i + 1)));
+  return Array.from({ length: 7 }, (_, i) =>
+    secondsBetween(sessions, addDays(start, i), addDays(start, i + 1)),
+  );
 }
 
 /** Últimos N dias, do mais antigo para hoje. */
@@ -232,12 +281,21 @@ export function goalProgress(doneSeconds: number, goalMinutes: number | null) {
 }
 
 export function subjectSeconds(sessions: StudySession[], subjectId: string): number {
-  return sessions.filter((s) => s.subjectId === subjectId).reduce((a, s) => a + s.durationSeconds, 0);
+  return sessions
+    .filter((s) => s.subjectId === subjectId)
+    .reduce((a, s) => a + s.durationSeconds, 0);
 }
 
-export function subjectGoalProgress(subject: Subject, sessions: StudySession[], now: Date = new Date()) {
+export function subjectGoalProgress(
+  subject: Subject,
+  sessions: StudySession[],
+  now: Date = new Date(),
+) {
   const own = sessions.filter((s) => s.subjectId === subject.id);
-  const done = subject.goalType === "semanal" ? secondsThisWeek(own, now) : own.reduce((a, s) => a + s.durationSeconds, 0);
+  const done =
+    subject.goalType === "semanal"
+      ? secondsThisWeek(own, now)
+      : own.reduce((a, s) => a + s.durationSeconds, 0);
   return { done, progress: goalProgress(done, subject.goalMinutes) };
 }
 
@@ -267,12 +325,22 @@ export function timerElapsedMs(t: TimerState, nowMs: number = Date.now()): numbe
 
 export function phaseLimitMs(t: TimerState, s: Settings): number | null {
   if (t.mode === "livre") return null;
-  const min = t.phase === "foco" ? s.pomodoro.focus : t.phase === "pausa_curta" ? s.pomodoro.shortBreak : s.pomodoro.longBreak;
+  const min =
+    t.phase === "foco"
+      ? s.pomodoro.focus
+      : t.phase === "pausa_curta"
+        ? s.pomodoro.shortBreak
+        : s.pomodoro.longBreak;
   return min * 60000;
 }
 
-export function nextPomodoroPhase(t: TimerState, s: Settings): { phase: TimerState["phase"]; cycle: number } {
+export function nextPomodoroPhase(
+  t: TimerState,
+  s: Settings,
+): { phase: TimerState["phase"]; cycle: number } {
   if (t.phase !== "foco") return { phase: "foco", cycle: t.phase === "pausa_longa" ? 0 : t.cycle };
   const cycle = t.cycle + 1;
-  return cycle >= s.pomodoro.cyclesBeforeLong ? { phase: "pausa_longa", cycle } : { phase: "pausa_curta", cycle };
+  return cycle >= s.pomodoro.cyclesBeforeLong
+    ? { phase: "pausa_longa", cycle }
+    : { phase: "pausa_curta", cycle };
 }

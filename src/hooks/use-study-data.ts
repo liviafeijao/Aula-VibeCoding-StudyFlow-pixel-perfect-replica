@@ -31,7 +31,11 @@ export function getStudyData(): StudyData {
 export function updateStudyData(fn: (d: StudyData) => StudyData): boolean {
   init();
   if (readFailed) {
-    state = { ...state, error: "Os dados salvos não puderam ser lidos, por isso nada foi alterado. Importe um backup ou limpe os dados em Configurações." };
+    state = {
+      ...state,
+      error:
+        "Os dados salvos não puderam ser lidos, por isso nada foi alterado. Importe um backup ou limpe os dados em Configurações.",
+    };
     emit();
     return false;
   }

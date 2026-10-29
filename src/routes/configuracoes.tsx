@@ -14,5 +14,15 @@ export const Route = createFileRoute("/configuracoes")({
 });
 
 function Page() {
-  return <ComingSoon title="Configurações" description="Preferências e backup dos seus dados." features={["Exportar backup local", "Importar backup", "Tema claro e escuro (já disponível no menu)"]} />;
+  return (
+    <ComingSoon
+      title="Configurações"
+      description="Preferências e backup dos seus dados."
+      features={[
+        "Exportar backup local",
+        "Importar backup",
+        "Tema claro e escuro (já disponível no menu)",
+      ]}
+    />
+  );
 }

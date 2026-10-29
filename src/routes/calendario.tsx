@@ -14,5 +14,11 @@ export const Route = createFileRoute("/calendario")({
 });
 
 function Page() {
-  return <ComingSoon title="Calendário" description="Veja seus prazos no calendário." features={["Prazos das atividades por mês", "Destaque de atividades atrasadas"]} />;
+  return (
+    <ComingSoon
+      title="Calendário"
+      description="Veja seus prazos no calendário."
+      features={["Prazos das atividades por mês", "Destaque de atividades atrasadas"]}
+    />
+  );
 }

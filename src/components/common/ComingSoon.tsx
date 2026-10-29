@@ -2,7 +2,15 @@ import { Hammer } from "lucide-react";
 import { PageHeader } from "./PageHeader";
 import { EmptyState } from "./EmptyState";
 
-export function ComingSoon({ title, description, features }: { title: string; description: string; features: string[] }) {
+export function ComingSoon({
+  title,
+  description,
+  features,
+}: {
+  title: string;
+  description: string;
+  features: string[];
+}) {
   return (
     <>
       <PageHeader title={title} description={description} />

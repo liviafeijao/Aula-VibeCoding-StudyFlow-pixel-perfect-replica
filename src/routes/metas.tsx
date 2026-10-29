@@ -14,5 +14,11 @@ export const Route = createFileRoute("/metas")({
 });
 
 function Page() {
-  return <ComingSoon title="Metas" description="Defina quanto quer estudar por semana." features={["Meta semanal de horas de estudo", "Acompanhamento no painel"]} />;
+  return (
+    <ComingSoon
+      title="Metas"
+      description="Defina quanto quer estudar por semana."
+      features={["Meta semanal de horas de estudo", "Acompanhamento no painel"]}
+    />
+  );
 }

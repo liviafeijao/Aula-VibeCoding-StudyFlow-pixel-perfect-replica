@@ -3,7 +3,11 @@ import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /** Select nativo: acessível e confortável no celular. */
-export function NativeSelect({ className, children, ...props }: SelectHTMLAttributes<HTMLSelectElement>) {
+export function NativeSelect({
+  className,
+  children,
+  ...props
+}: SelectHTMLAttributes<HTMLSelectElement>) {
   return (
     <div className={cn("relative", className)}>
       <select
@@ -12,7 +16,10 @@ export function NativeSelect({ className, children, ...props }: SelectHTMLAttrib
       >
         {children}
       </select>
-      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
+      <ChevronDown
+        className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+        aria-hidden
+      />
     </div>
   );
 }

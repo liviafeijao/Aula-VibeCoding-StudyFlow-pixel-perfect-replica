@@ -16,7 +16,8 @@ export function useTheme() {
     return () => mq.removeEventListener("change", on);
   }, []);
 
-  const theme: "light" | "dark" = pref === "sistema" ? (systemDark ? "dark" : "light") : pref === "escuro" ? "dark" : "light";
+  const theme: "light" | "dark" =
+    pref === "sistema" ? (systemDark ? "dark" : "light") : pref === "escuro" ? "dark" : "light";
 
   useEffect(() => {
     if (!loaded) return;

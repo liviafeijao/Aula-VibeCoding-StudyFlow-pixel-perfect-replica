@@ -11,7 +11,15 @@ import {
 } from "lucide-react";
 
 export interface NavItem {
-  to: "/" | "/periodos" | "/materias" | "/atividades" | "/calendario" | "/estudo" | "/metas" | "/configuracoes";
+  to:
+    | "/"
+    | "/periodos"
+    | "/materias"
+    | "/atividades"
+    | "/calendario"
+    | "/estudo"
+    | "/metas"
+    | "/configuracoes";
   label: string;
   icon: LucideIcon;
   mobile: boolean;

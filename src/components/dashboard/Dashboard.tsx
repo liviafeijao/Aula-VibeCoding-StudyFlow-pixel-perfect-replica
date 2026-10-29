@@ -1,4 +1,12 @@
-import { AlertTriangle, CalendarClock, CheckCircle2, Clock, ListTodo, Timer, BookOpen } from "lucide-react";
+import {
+  AlertTriangle,
+  CalendarClock,
+  CheckCircle2,
+  Clock,
+  ListTodo,
+  Timer,
+  BookOpen,
+} from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,8 +29,18 @@ import { PageHeader } from "@/components/common/PageHeader";
 
 const WEEKDAYS = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
 
-function Stat({ icon: Icon, label, value, hint, tone = "primary" }: {
-  icon: typeof Clock; label: string; value: string; hint?: string; tone?: "primary" | "danger";
+function Stat({
+  icon: Icon,
+  label,
+  value,
+  hint,
+  tone = "primary",
+}: {
+  icon: typeof Clock;
+  label: string;
+  value: string;
+  hint?: string;
+  tone?: "primary" | "danger";
 }) {
   return (
     <Card className="stat-card">
@@ -62,7 +80,9 @@ export function Dashboard() {
       <div className="space-y-6">
         <Skeleton className="h-12 w-64" />
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {[0, 1, 2, 3].map((i) => <Skeleton key={i} className="h-24" />)}
+          {[0, 1, 2, 3].map((i) => (
+            <Skeleton key={i} className="h-24" />
+          ))}
         </div>
       </div>
     );
@@ -70,13 +90,37 @@ export function Dashboard() {
 
   return (
     <>
-      <PageHeader title="Painel" description={`Hoje é ${today}. Veja seu ritmo de estudos em um só lugar.`} />
+      <PageHeader
+        title="Painel"
+        description={`Hoje é ${today}. Veja seu ritmo de estudos em um só lugar.`}
+      />
 
       <section aria-label="Resumo" className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <Stat icon={ListTodo} label="Atividades pendentes" value={String(pending.length)} hint={`${activities.length} no total`} />
-        <Stat icon={AlertTriangle} label="Atrasadas" value={String(overdue.length)} tone={overdue.length ? "danger" : "primary"} hint={overdue.length ? "Precisam de atenção" : "Nada atrasado"} />
-        <Stat icon={CheckCircle2} label="Progresso das atividades" value={`${progress.percent}%`} hint={`${progress.done} de ${progress.total} concluídas`} />
-        <Stat icon={Clock} label="Estudado nesta semana" value={formatDuration(weekMin)} hint={goal ? `Meta: ${formatDuration(goal * 60)}` : "Sem meta definida"} />
+        <Stat
+          icon={ListTodo}
+          label="Atividades pendentes"
+          value={String(pending.length)}
+          hint={`${activities.length} no total`}
+        />
+        <Stat
+          icon={AlertTriangle}
+          label="Atrasadas"
+          value={String(overdue.length)}
+          tone={overdue.length ? "danger" : "primary"}
+          hint={overdue.length ? "Precisam de atenção" : "Nada atrasado"}
+        />
+        <Stat
+          icon={CheckCircle2}
+          label="Progresso das atividades"
+          value={`${progress.percent}%`}
+          hint={`${progress.done} de ${progress.total} concluídas`}
+        />
+        <Stat
+          icon={Clock}
+          label="Estudado nesta semana"
+          value={formatDuration(weekMin)}
+          hint={goal ? `Meta: ${formatDuration(goal * 60)}` : "Sem meta definida"}
+        />
       </section>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-5">
@@ -99,10 +143,15 @@ export function Dashboard() {
                 {next.slice(0, 6).map((a) => {
                   const late = isOverdue(a, now);
                   return (
-                    <li key={a.id} className={`flex items-center justify-between gap-3 py-3 ${late ? "overdue-row" : ""}`}>
+                    <li
+                      key={a.id}
+                      className={`flex items-center justify-between gap-3 py-3 ${late ? "overdue-row" : ""}`}
+                    >
                       <div className="min-w-0">
                         <p className="truncate font-medium">{a.title}</p>
-                        <p className="truncate text-sm text-muted-foreground">{subjectName(a.subjectId)}</p>
+                        <p className="truncate text-sm text-muted-foreground">
+                          {subjectName(a.subjectId)}
+                        </p>
                       </div>
                       <div className="flex shrink-0 items-center gap-2">
                         {late && <Badge variant="destructive">Atrasada</Badge>}
@@ -129,9 +178,14 @@ export function Dashboard() {
               <div className="mb-5">
                 <div className="mb-1.5 flex justify-between text-sm">
                   <span className="text-muted-foreground">Meta semanal</span>
-                  <span className="font-medium tabular-nums">{Math.min(100, Math.round((weekMin / goal) * 100))}%</span>
+                  <span className="font-medium tabular-nums">
+                    {Math.min(100, Math.round((weekMin / goal) * 100))}%
+                  </span>
                 </div>
-                <Progress value={Math.min(100, (weekMin / goal) * 100)} aria-label="Progresso da meta semanal" />
+                <Progress
+                  value={Math.min(100, (weekMin / goal) * 100)}
+                  aria-label="Progresso da meta semanal"
+                />
               </div>
             ) : null}
             {weekMin === 0 ? (
@@ -139,10 +193,18 @@ export function Dashboard() {
                 Suas sessões de cronômetro e Pomodoro serão somadas aqui, dia a dia.
               </EmptyState>
             ) : (
-              <div className="flex h-40 items-end gap-2" role="img" aria-label="Minutos estudados por dia da semana">
+              <div
+                className="flex h-40 items-end gap-2"
+                role="img"
+                aria-label="Minutos estudados por dia da semana"
+              >
                 {byDay.map((m, i) => (
                   <div key={WEEKDAYS[i]} className="flex flex-1 flex-col items-center gap-1.5">
-                    <div className="bar" style={{ height: `${Math.max(4, (m / maxDay) * 100)}%` }} title={formatDuration(m)} />
+                    <div
+                      className="bar"
+                      style={{ height: `${Math.max(4, (m / maxDay) * 100)}%` }}
+                      title={formatDuration(m)}
+                    />
                     <span className="text-xs text-muted-foreground">{WEEKDAYS[i]}</span>
                   </div>
                 ))}
@@ -161,10 +223,16 @@ export function Dashboard() {
         <CardContent>
           {subjects.length === 0 ? (
             <EmptyState icon={BookOpen} title="Comece cadastrando suas matérias">
-              Crie um período letivo e adicione as matérias que você está cursando. O progresso de cada uma aparecerá aqui.
+              Crie um período letivo e adicione as matérias que você está cursando. O progresso de
+              cada uma aparecerá aqui.
               <div className="mt-3">
-                <button type="button" className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-                  onClick={() => (data.periods.some((p) => !p.archived) ? ui.newSubject() : ui.newPeriod())}>
+                <button
+                  type="button"
+                  className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+                  onClick={() =>
+                    data.periods.some((p) => !p.archived) ? ui.newSubject() : ui.newPeriod()
+                  }
+                >
                   {data.periods.some((p) => !p.archived) ? "Criar matéria" : "Criar período"}
                 </button>
               </div>
@@ -177,7 +245,9 @@ export function Dashboard() {
                   <li key={s.id}>
                     <div className="mb-1.5 flex justify-between gap-2 text-sm">
                       <span className="truncate font-medium">{s.name}</span>
-                      <span className="tabular-nums text-muted-foreground">{p.done}/{p.total}</span>
+                      <span className="tabular-nums text-muted-foreground">
+                        {p.done}/{p.total}
+                      </span>
                     </div>
                     <Progress value={p.percent} aria-label={`Progresso de ${s.name}`} />
                   </li>

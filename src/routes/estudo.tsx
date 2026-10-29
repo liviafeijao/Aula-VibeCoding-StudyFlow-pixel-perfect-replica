@@ -14,5 +14,11 @@ export const Route = createFileRoute("/estudo")({
 });
 
 function Page() {
-  return <ComingSoon title="Estudo" description="Controle o tempo que você dedica a cada matéria." features={["Cronômetro livre", "Modo Pomodoro", "Histórico de sessões"]} />;
+  return (
+    <ComingSoon
+      title="Estudo"
+      description="Controle o tempo que você dedica a cada matéria."
+      features={["Cronômetro livre", "Modo Pomodoro", "Histórico de sessões"]}
+    />
+  );
 }

@@ -17,8 +17,14 @@ export interface Period {
 }
 
 export type SubjectColor =
-  | "subject-1" | "subject-2" | "subject-3" | "subject-4"
-  | "subject-5" | "subject-6" | "subject-7" | "subject-8";
+  | "subject-1"
+  | "subject-2"
+  | "subject-3"
+  | "subject-4"
+  | "subject-5"
+  | "subject-6"
+  | "subject-7"
+  | "subject-8";
 
 export type SubjectGoalType = "semanal" | "total";
 
@@ -137,20 +143,37 @@ export const emptyData = (): StudyData => ({
 });
 
 export const SUBJECT_COLORS: SubjectColor[] = [
-  "subject-1", "subject-2", "subject-3", "subject-4",
-  "subject-5", "subject-6", "subject-7", "subject-8",
+  "subject-1",
+  "subject-2",
+  "subject-3",
+  "subject-4",
+  "subject-5",
+  "subject-6",
+  "subject-7",
+  "subject-8",
 ];
 
 export const ACTIVITY_TYPE_LABEL: Record<ActivityType, string> = {
-  exercicio: "Exercício", leitura: "Leitura", revisao: "Revisão",
-  prova: "Prova", trabalho: "Trabalho", geral: "Geral",
+  exercicio: "Exercício",
+  leitura: "Leitura",
+  revisao: "Revisão",
+  prova: "Prova",
+  trabalho: "Trabalho",
+  geral: "Geral",
 };
 export const PRIORITY_LABEL: Record<Priority, string> = {
-  baixa: "Baixa", media: "Média", alta: "Alta", urgente: "Urgente",
+  baixa: "Baixa",
+  media: "Média",
+  alta: "Alta",
+  urgente: "Urgente",
 };
 export const STATUS_LABEL: Record<ActivityStatus, string> = {
-  nao_iniciada: "Não iniciada", em_andamento: "Em andamento", concluida: "Concluída",
+  nao_iniciada: "Não iniciada",
+  em_andamento: "Em andamento",
+  concluida: "Concluída",
 };
 export const PERIOD_STATUS_LABEL: Record<PeriodStatus, string> = {
-  planejado: "Planejado", em_andamento: "Em andamento", concluido: "Concluído",
+  planejado: "Planejado",
+  em_andamento: "Em andamento",
+  concluido: "Concluído",
 };

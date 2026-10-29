@@ -1,0 +1,6 @@
+{
+  "name": "StudyFlow",
+  "description": "Organize períodos, matérias, atividades e tempo de estudo.",
+  "permissions": [],
+  "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
