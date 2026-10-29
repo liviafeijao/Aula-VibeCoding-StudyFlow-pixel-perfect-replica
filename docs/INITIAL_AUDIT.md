@@ -14,7 +14,7 @@ Verificação: 29/10/2026. Fonte: arquivos do projeto e tentativa de consulta pe
 - O repositório inclui exclusões físicas locais com remoção de descendentes, que precisarão ser revistas para a prioridade nova de arquivamento.
 - TanStack Query está disponível no router e no root, mas não é a fonte dos dados de estudo atuais.
 
-## Bloqueio confirmado
+## Bloqueio inicial (resolvido após conexão)
 
 Tentativa não destrutiva:
 
@@ -28,8 +28,16 @@ Não há acesso gerenciado via `PGHOST`; não foram encontradas variáveis de UR
 
 Não foi possível identificar um projeto remoto, consultar tabelas, colunas, índices, constraints, triggers ou RLS. Não foram executadas migrations, nem criadas tabelas, nem alterados dados ou autenticação. Não foi ativado um novo banco, respeitando a proibição do documento.
 
+## Verificação após conexão
+
+Em 29/10/2026, após a conexão externa disponibilizada pelo usuário, a consulta de leitura via integração retornou as tabelas `public.curso`, `public.matricula` e `public.user` no banco `postgres`. Projeto conectado: `fgxdzvlonocddtimkoaw`.
+
+Agora existem `supabase/config.toml` e os clientes gerados em `src/integrations/supabase`. O impedimento anterior descreve apenas a tentativa anterior à conexão, não o estado atual.
+
+Nenhum registro foi lido nesta verificação, somente nomes de tabelas. Nenhuma migration foi aplicada. A conexão foi confirmada; a integração das funcionalidades do StudyFlow ainda não foi implementada.
+
 ## Próxima etapa
 
-Disponibilizar neste projeto o acesso ao banco existente mencionado nos documentos. Depois: inventariar schema, reutilizar tabelas compatíveis, registrar arquitetura inicial completa, integrar Auth e persistência, corrigir progresso e validar isolamento e fluxos reais. Nenhuma dessas etapas deve ser descrita como concluída antes de confirmação.
+Inventariar o schema completo do banco agora acessível, reutilizar tabelas compatíveis, registrar arquitetura inicial completa, integrar Auth e persistência, corrigir progresso e validar isolamento e fluxos reais. Nenhuma dessas etapas deve ser descrita como concluída antes de confirmação.
 
 Este registro não substitui a documentação final solicitada: ela depende da auditoria remota e da implementação real. Nenhum teste, lint ou build foi executado nesta etapa exclusivamente documental.

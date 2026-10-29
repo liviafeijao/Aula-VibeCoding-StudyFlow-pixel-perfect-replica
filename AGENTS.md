@@ -16,4 +16,4 @@
 
 ## Backend transition
 - The current implementation is local-only, but the requested next phase must use the existing connected database exclusively; do not provision a replacement. This preserves the user's existing data and avoids a parallel backend.
-- Verify remote schema and connection before migrations; use incremental, non-destructive changes and keep documentation aligned with verified results. See `docs/INITIAL_AUDIT.md` and `roadmap.md` for the current access blocker.
+- Verify remote schema and connection before migrations; use incremental, non-destructive changes and keep documentation aligned with verified results. See `docs/INITIAL_AUDIT.md` and `roadmap.md` for verified connection status and pending integration work.

@@ -1,6 +1,7 @@
 # StudyFlow — tarefas atuais
 
-- [ ] Auditar o schema remoto — bloqueado: o CLI confirma ausência de backend conectado neste ambiente.
+- [x] Confirmar conexão ao banco existente — consulta retornou `curso`, `matricula` e `user`.
+- [ ] Auditar o schema remoto completo — conexão disponível; inventário detalhado pendente.
 - [x] Registrar auditoria inicial do código e tentativa de acesso em `docs/INITIAL_AUDIT.md`.
 - [ ] Completar documentação inicial após acesso ao schema remoto.
 - [ ] Integrar autenticação, persistência e isolamento usando exclusivamente o banco conectado.
